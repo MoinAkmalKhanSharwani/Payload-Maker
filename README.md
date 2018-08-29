@@ -1,2 +1,3 @@
 # Payload-Maker
-this software only for linux
+This software only for linux
+Payload-Maker is use for make payload (Backdoor) for android, windows,linux or php payload 
