@@ -1,4 +1,3 @@
-import logging.handlers
 import sys
 def platform1():
     platforms = {
