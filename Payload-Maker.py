@@ -10,12 +10,12 @@ def platform1():
     }
     if sys.platform not in platforms:
         return sys.platform
-    
     return platforms[sys.platform]
 if platform1()== "Linux":
 	pass
 else:
 	print("This software is only for Linux os sorry")
+	time.sleep(1)
 	sys.exit()
 if sys.version_info.major < 3:
 	print("Payload Maker supports only Python3. Rerun application in Python3 environment.")
