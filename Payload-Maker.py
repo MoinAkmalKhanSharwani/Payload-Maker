@@ -21,7 +21,7 @@ if sys.version_info.major < 3:
 	print("Payload Maker supports only Python3. Rerun application in Python3 environment.")
 	install = input("you want to install Python3? [yes / no] : ")
 	if install.lower()=="yes" or install.lower()=="y":
-		os.system("sudo apt update && sudo apt-get install python")
+		os.system("sudo apt update && sudo apt-get install python3")
 	else:
 		sys.exit()
 		print("Program Exiting.......")
